@@ -1,0 +1,14 @@
+from django.contrib import admin
+from .models import Post
+
+# admin page 출력되는 내용을 customize
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['id','title','count_text'] #--> id, title, count_text를 상단에 보여주겠다
+    list_display_links = ['title'] #-->title 에 링크를 걸어서 게시글로 들어갈 수 있게 해주겠다
+
+
+    def count_text(self, obj):
+        return '{}글자'.format(len(obj.text))
+    count_text.short_description = '내용 글자수' #--> count text 부분 대신에 내용 글자수로 대체됨
+
+admin.site.register(Post,PostAdmin)
