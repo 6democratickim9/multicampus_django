@@ -7,10 +7,10 @@
             <div class="date">
                 <p>Published : {{post.published_date}}</p>
             </div>
-            <h2><a href="">{{post.title}}</a></h2>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{post.title}}</a></h2>
             <p>{{post.text|linebreaksbr}}</p>
         </div>
-        <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨??-->
+        <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨-->
     </div>
     {% endfor %}
 {% endblock %}

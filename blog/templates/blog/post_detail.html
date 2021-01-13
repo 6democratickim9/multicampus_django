@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="post">
+        {% if post.published_date %}
+            <div class="date">
+                <p>Published : {{post.published_date}}</p>
+            </div>
+        {% endif %}
+            <h2>{{post.title}}</h2>
+            <p>{{post.text|linebreaksbr}}</p>
+    </div>
+        <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨??-->
+{% endblock %}
