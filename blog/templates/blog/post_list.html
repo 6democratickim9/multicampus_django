@@ -1,8 +1,43 @@
 <!DOCTYPE html>
-<html lang = "en">
+{% load static %}
+<html lang = "kos">
 <head>
     <meta charset="UTF-8">
     <title>Django Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css" >
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
 </head>
-    <h1>Hello Django</h1>
+<body>
+    <div class = "page-header">
+
+        <h1><a href="{%url 'post_list'%}">Hello Django</h1>
+
+    </div>
+    <div class = "content container">
+        <div class ="row">
+            <div>
+        {% for post in posts %}
+                <div class = "col-md-8">
+                    <div class="post">
+                        <div class = "date">
+                            <p>Published : {{post.published_date}}</p>
+                        </div>
+                        <h2><a href ="">{{post.title}}</a></h2>
+                        <p>{{post.text|linebreaksbr}}</p>
+                    </div>
+        <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨??-->
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+<!--html 주석-->
+
+    {% comment %}
+        django주석
+    {% endcomment %}
+
+</body>
 </html>
