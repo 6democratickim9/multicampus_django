@@ -2,10 +2,10 @@
 
 {% block content %}
 <script>
-    function post_remove(){
-    //    {% url 'post_remove' pk=post.pk %}
+    function post_remove() {
+        //    {% url 'post_remove' pk=post.pk %}
         var result = confirm('Post를 삭제하시겠습니까?')
-        if (result){
+        if (result) {
             let remove_url = "{% url 'post_remove' pk=post.pk %}"
             document.location.href = remove_url
         }
@@ -15,23 +15,38 @@
 <div class="post">
     <h2>Post Detail</h2>
     {% if post.published_date %}
-        <div class="date">
-                <p>Published : {{post.published_date}}</p>
-        </div>
-        {% endif %}
+    <div class="date">
+        <p>Published : {{post.published_date}}</p>
+    </div>
+    {% endif %}
 
     {%if user.is_authenticated%}
 
-        <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-default">
-                <span class="glyphicon glyphicon-pencil"></span>
-        </a>
-        <a href="{% url 'post_remove' pk=post.pk %}" class="btn btn-danger">
-            <span class="glyphicon glyphicon-remove"></span>
-        </a>
+    <a href="{% url 'post_edit' pk=post.pk %}" class="btn btn-default">
+        <span class="glyphicon glyphicon-pencil"></span>
+    </a>
+    <a href="{% url 'post_remove' pk=post.pk %}" class="btn btn-danger">
+        <span class="glyphicon glyphicon-remove"></span>
+    </a>
     {% endif %}
 
-            <h2>{{post.title}}</h2>
-            <p>{{post.text|linebreaksbr}}</p>
+    <h2>{{post.title}}</h2>
+    <p>{{post.text|linebreaksbr}}</p>
+</div>
+<hr>
+<a href="{% url 'add_comment_to_post' pk=post.pk %}" class="btn btn-default">Add Comment</a>
+{% for comment in post.comments.all %}
+    <div class="comment">
+        <div class="date">
+            {{comment.created_date}}
+        </div>
+        <strong>{{comment.author}}</strong>
+        <p>{{comment.text|linebreaks}}</p>
     </div>
-        <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨??-->
+
+{% empty %}
+    <p>No comments here yet</p>
+{% endfor %}
+
+<!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨??-->
 {% endblock %}
