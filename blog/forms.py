@@ -5,7 +5,8 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title','text',)
-    # title 입력필드의 길이 체크<3
+
+# title 입력필드의 길이 체크<3
 def min_length_3_validator(value):
     if len(value) < 3:
         raise forms.ValidationError('Title은 3글자이상')
