@@ -63,6 +63,7 @@ def post_new(request):
     return render(request, 'blog/post_edit.html', {'form': form})
 
 
+@login_required
 # Post 등록 ModelForm 사용
 def post_new(request):
     if request.method == 'POST':

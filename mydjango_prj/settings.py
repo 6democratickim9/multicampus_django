@@ -122,3 +122,5 @@ import os
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,STATIC_URL)
 # 정적인 웹 수정가능
+
+LOGIN_REDIRECT_URL = '/'
