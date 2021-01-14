@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang = "kos">
+<html lang = "ko">
 <head>
     <meta charset="UTF-8">
     <title>Django Blog</title>
@@ -11,6 +11,9 @@
 </head>
 <body>
     <div class = "page-header">
+        <a href="{% url 'post_new' %}" class="top-menu">
+            <span class="glyphicon glyphicon-plus"></span>
+        </a>
         <h1><a href="{%url 'post_list'%}">Hello Django</a></h1>
     </div>
     <div class = "content container">

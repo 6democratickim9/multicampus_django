@@ -1,11 +1,51 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import HttpResponse
 from django.utils import timezone
+from django.contrib.auth.models import User
+
 from requests import post
 
 from .models import Post
+from .forms import PostModelForm,PostForm
+
+# Post 등록 : Form 사용
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            # form 데이터가 clena한 상태
+            print(form.cleaned_data)
+            post = Post.objects.create(author=User.objects.get(username=request.user.username),
+                                title= form.cleaned_data['title'],
+                                text=form.cleaned_data['text'],
+                                published_date = timezone.now() )
+
+            return redirect('post_detail',pk=post.pk)
 
 
+    else:
+        # 등록하는 빈 폼을 보여준다.
+        form = PostForm()
+    return render(request, 'blog/post_edit.html', {'form': form})
+
+# Post 등록 ModelForm 사용
+def post_new_model(request):
+    if request.method == 'POST':
+    #     실제 등록 처리하기
+        form = PostModelForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit= False)
+    #         작성자
+            post.author = User.objects.get(username=request.user.username)
+    #         게시일, 글 게시 날짜
+            post.published_date = timezone.now()
+    #     실제 등록됨
+            post.save()
+            return redirect('post_detail',pk=post.pk)
+    else:
+        # 등록하는 빈 폼을 보여준다.
+        form = PostModelForm()
+    return render(request, 'blog/post_edit.html',{'form':form})
 
 # post 상세정보
 
