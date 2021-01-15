@@ -7,8 +7,23 @@ from django.contrib.auth.decorators import login_required
 
 from requests import post
 
-from .models import Post
+from .models import Post, Comment
 from .forms import PostModelForm, PostForm, CommentForm
+
+# comment 승인
+@login_required
+def comment_approve(request,pk):
+    comment = get_object_or_404(Comment,pk=pk)
+    comment.approve()
+    return redirect('post_detail',pk=comment.post.pk)
+# COMMENT 삭제
+@login_required
+def comment_remove(request,pk):
+    comment = get_object_or_404(Comment,pk=pk)
+    post_pk = comment.post.pk
+    comment.delete()
+    return redirect('post_detail',pk=post_pk)
+
 
 # comment 등록
 def add_comment_to_post(request, pk):

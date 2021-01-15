@@ -31,7 +31,13 @@ class Post(models.Model):
     def publish(self):
         self.publshed_date = timezone.now()
         self.save()
+#         승인된 댓글만 필터링하는 메서드
+    def approved_comments(self):
+        return self.comments.filter(approved_comment=True)
 
+
+
+# post 에 달린 댓글
 class Comment (models.Model):
     post = models.ForeignKey('blog.Post',on_delete=models.CASCADE, related_name='comments')
     author = models.CharField(max_length=100)
