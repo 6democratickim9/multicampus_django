@@ -71,7 +71,7 @@ def post_edit(request, pk):
 
 @login_required
 # Post 등록 : Form 사용
-def post_new(request):
+def post_new_form(request):
     if request.method == 'POST':
         # 실제 등록 처리하기
         form = PostForm(request.POST)
@@ -143,7 +143,7 @@ def post_list(request):
     # 템플릿을 연결해주는 역할
 
     # Post 목록
-    def post_response(request):
+    def post_list_response(request):
         name = 'Django'
         response = HttpResponse(f'<h2>Hello {name}</h2>', content_type="text/html")
         response.write(f'<h2>Hello {name}</h2>')
