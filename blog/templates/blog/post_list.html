@@ -14,4 +14,6 @@
         <!--    requests 메서드에 들어있는 중괄호는 하나 더 줘야됨-->
     </div>
     {% endfor %}
+
+    {% include  'blog/post_pagination.html' with page=posts %}
 {% endblock %}
